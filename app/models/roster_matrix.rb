@@ -94,6 +94,7 @@ class RosterMatrix < Matrix
     # cols are Rosters
     def self.create_salary_matrix init_matrix, c_row, c_col, exclude_point
       player = init_matrix[c_row, c_col]
+      roster_salary_for_player = init_matrix(c_col).sum { |h| h.salary }
       exclude_point = [] if exclude_point.nil?
 
       pt = RosterMatrix.build(init_matrix.row_size, init_matrix.column_size) do |row, col|
@@ -116,9 +117,11 @@ class RosterMatrix < Matrix
           if player.salary == swap_player.salary
             0
           else
-            # if they both are under the salary cap make this swap a priority
-            if init_matrix.column(col).sum { |h| h.salary } - swap_player.salary + player.salary < @max_salary &&
-              init_matrix.column(c_col).sum { |h| h.salary } - player.salary + swap_player.salary < @max_salary
+            # if current rotser is over the cap and making the swap will put 
+            # both rosters under the salary cap - make this swap a priority
+            if roster_salary_for_player > @max_salary &&
+               init_matrix.column(col).sum { |h| h.salary } - swap_player.salary + player.salary < @max_salary &&
+               init_matrix.column(c_col).sum { |h| h.salary } - player.salary + swap_player.salary < @max_salary
               100
 
             # check to see if the players swapping will be swapping with a column that the player

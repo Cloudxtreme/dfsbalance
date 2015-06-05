@@ -19,8 +19,8 @@ development:
   encoding: unicode
   database: dfsbalance_development
   pool: 5
-  username: dfsbalance
-  password:
+  username: vagrant
+  password: abcd1234
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -48,13 +48,13 @@ test:
   encoding: unicode
   database: dfsbalance_test
   pool: 5
-  username: dfsbalance
-  password:
+  username: vagrant
+  password: abcd1234
 
 production:
   adapter: postgresql
   encoding: unicode
   database: dfsbalance_production
   pool: 5
-  username: dfsbalance
-  password:
+  username: vagrant
+  password: abcd1234

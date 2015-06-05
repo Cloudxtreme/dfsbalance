@@ -9,9 +9,13 @@ class RosterMatrix < Matrix
 
     count = 0
     last_swap = []
+    max_swaps = matrix.row_size * matrix.column_size * 3
 
     while !is_balanced?(matrix)
-      break if count > 200
+      if count > max_swaps
+        matrix = nil
+        break
+      end
 
       p = get_swap matrix, last_swap
       matrix = swap_point(matrix, p)

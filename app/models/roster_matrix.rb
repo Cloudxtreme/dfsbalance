@@ -1,3 +1,5 @@
+require 'matrix'
+
 class RosterMatrix < Matrix
 
   # rows are positions
